@@ -4,23 +4,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /* this is all you need to know about the model */
+/* you are only allowed to use functions in the interface */
 interface CompanyInterface
 {   // action funcion
     bool take_project(Contract contract, string[] CrewNames);
     void hire_employee(string s, int salary, BasicPropertys propertys);
     void buy_asset(Asset newasset);
 
-    // used in control to update through time
-    void update_company();
-    void update_projects();
-    void update_employees();
-
-    // console printing
-    string employees_info();
-    string assets_info();
-    void print_company();
-    void print_employees();
-    void print_assets();
+    //ask infos
+    Dictionary<string,Employee> getEmployees();
+    
 }
 
 /* anything else below you don't need to know */
@@ -33,6 +26,10 @@ public class Company : CompanyInterface
     private List<Project> projects_engaged = new List<Project>();
     private int money;
     private string company_name;
+
+    public Dictionary<string,Employee> getEmployees()
+    {   return employees;
+    }
 
     public Company(string name)
     {   this.company_name = name;
