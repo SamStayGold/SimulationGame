@@ -14,6 +14,12 @@ public class Control : MonoBehaviour
     // Only fetch information using functions in the Interfaces
     // anythin below interface you don't need to know
 
+// static function to let UI GameObject knows where the controller is
+    public static Control ConnectToGameModel()
+    {   GameObject gamemodel = GameObject.FindWithTag("GameController");
+        return gamemodel.GetComponent<Control>();
+    }
+
     public Company getUserCompany()
     {   return PlayerCompany;
     }
@@ -38,9 +44,10 @@ public class Control : MonoBehaviour
     }
 
     void intial_settings()
-    {   PlayerCompany.hire_employee("Lucy", 8, new BasicPropertys(50,50,50));
-        PlayerCompany.hire_employee("Tracy", 5, new BasicPropertys(50,33,50));
-        PlayerCompany.hire_employee("Lisbon", 10, new BasicPropertys(50,33,76));
+    {   PrebuiltEmployee("Lucy", 8, new BasicPropertys(50,50,50));
+        PrebuiltEmployee("Tracy", 5, new BasicPropertys(50,33,50));
+        PrebuiltEmployee("Lisbon", 10, new BasicPropertys(50,33,76));
+        PrebuiltEmployee("Sam", 1, new BasicPropertys(20,23,16));
         PlayerCompany.buy_asset(new Asset("Mercedes C-class",200000f));
         PlayerCompany.print_employees();
         PlayerCompany.print_assets();
@@ -60,10 +67,12 @@ public class Control : MonoBehaviour
         Debug.Log("Day "+day+":");
     }
 
-// static function to let UI GameObject knows where the controller is
-    public static Control ConnectToGameModel()
-    {   GameObject gamemodel = GameObject.FindWithTag("GameController");
-        return gamemodel.GetComponent<Control>();
+    public void PrebuiltEmployee(string s, int salary, BasicPropertys propertys)
+    {   PrebuiltEmployees.Add(new Employee(s,salary,propertys));
+    }
+
+    public List<Employee> getPrebuiltEmployees()
+    {   return PrebuiltEmployees;
     }
 
 }
