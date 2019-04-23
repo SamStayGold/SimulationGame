@@ -1,0 +1,31 @@
+//////////////////chao wang  2019-3-4  /////////////////////
+
+To test the units separately, we need the following:
+
+1  use command line : csc Employee.cs   to compile c# file outside unity
+    write a makefile to do this   
+    
+2  write a main function in the .cs file you want to test
+
+3  move all the unityengine reference from the unit except Control.cs, 
+    which means moving all the Debug.Log to the Control.cs 
+    so that we can compile without refer to unity
+
+    In these units, Console.writeline() can be used to print some thing out,
+    but Debug.Log should still be kept in Control.cs to test the whole program
+
+c# compiler installation
+
+1 Windows
+   download windows.net which is probably already there
+   include the   C:\Windows\Microsoft.NET\Framework64\v4.0.30319 
+  ( or some directory smiliar containing csc.exe )
+   to the system environment variable path
+
+2 Mac
+    using mono to compile c# file
+    You can install it with homebrew:
+	brew install mono
+    Then you can use it with:
+	mcs hello.cs
+	mono hello.exe
