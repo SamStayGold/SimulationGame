@@ -71,6 +71,10 @@ public class Control : MonoBehaviour
     {   PrebuiltEmployees.Add(new Employee(s,salary,propertys));
     }
 
+    public void DeletePrebuiltEmployee(Employee e)
+    {   PrebuiltEmployees.Remove(e);
+    }
+
     public List<Employee> getPrebuiltEmployees()
     {   return PrebuiltEmployees;
     }
