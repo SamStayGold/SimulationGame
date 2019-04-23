@@ -4,12 +4,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Control : MonoBehaviour
-{   public Company PlayerCompany;
+{   private Company PlayerCompany;
     private List<Employee> PrebuiltEmployees = new List<Employee>();
     private List<Contract> PrebuiltContracts = new List<Contract>();
     private float time0 = 0.0f;
     private float interval = 3.0f;  // the real time for each day in seconds
     private int day = 0;
+
+    // the only two classes you should know are ** Compnay(interface) and Control.cs
+    // Only fetch information from company.cs
+    // use functions in the CompanyInterface
+    public Company getUserCompany()
+    {   return PlayerCompany;
+    }
 
     void Start()
     {   PlayerCompany = new Company("California Technology");

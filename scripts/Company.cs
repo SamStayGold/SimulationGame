@@ -3,10 +3,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* this is all you need to know about the model */
+interface CompanyInterface
+{   // action funcion
+    bool take_project(Contract contract, string[] CrewNames);
+    void hire_employee(string s, int salary, BasicPropertys propertys);
+    void buy_asset(Asset newasset);
+
+    // used in control to update through time
+    void update_company();
+    void update_projects();
+    void update_employees();
+
+    // console printing
+    string employees_info();
+    string assets_info();
+    void print_company();
+    void print_employees();
+    void print_assets();
+}
+
+/* anything else below you don't need to know */
+
 // employee was held in a Dictionary, so that you can find one employee
 // by its name
-
-public class Company
+public class Company : CompanyInterface
 {   private Dictionary<string,Employee> employees = new Dictionary<string,Employee>();
     private List<Asset> assets = new List<Asset>();
     private List<Project> projects_engaged = new List<Project>();
