@@ -8,12 +8,11 @@ using UnityEngine;
 interface CompanyInterface
 {   // action funcion
     bool take_project(Contract contract, string[] CrewNames);
-    void hire_employee(string s, int salary, BasicPropertys propertys);
     void buy_asset(Asset newasset);
 
     //ask infos
     Dictionary<string,Employee> getEmployees();
-    
+
 }
 
 /* anything else below you don't need to know */
@@ -85,8 +84,8 @@ public class Company : CompanyInterface
         return true;
     }
 
-    public void hire_employee(string s, int salary, BasicPropertys propertys)
-    {   employees.Add(s,new Employee(s,salary,propertys));
+    public void hire_employee(Employee e)
+    {   employees.Add(e.get_name(),e);
     }
 
     public void buy_asset(Asset newasset)
