@@ -11,9 +11,9 @@ public class Control : MonoBehaviour
     private float interval = 3.0f;  // the real time for each day in seconds
     private int day = 0;
 
-    // the only two classes you should know are ** Compnay(interface) and Control.cs
+    // the only two classes you should know are *Compnay(interface) and *Control.cs
     // Only fetch information from company.cs
-    // use functions in the CompanyInterface
+    // using functions in the CompanyInterface
     public Company getUserCompany()
     {   return PlayerCompany;
     }
