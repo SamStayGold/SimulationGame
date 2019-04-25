@@ -9,6 +9,7 @@ interface CompanyInterface
 {   // action funcion
     bool take_project(Contract contract, string[] CrewNames);
     void buy_asset(Asset newasset);
+    void hire_employee(Employee e);
 
     //ask infos
     Dictionary<string,Employee> getEmployees();
