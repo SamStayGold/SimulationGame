@@ -12,13 +12,11 @@ class Project
     private BasicPropertys workload;
     private BasicPropertys progress = new BasicPropertys(0,0,0);
     private BasicPropertys workforce;
-    private int award;
 
-    public int get_award() {   return award;}
+    public int get_award() {   return contract.get_award();}
 
     public Project(Contract contract, List<Employee> employees)
     {   this.contract = contract;
-        this.award = contract.get_award();
         // record the workload requirements of the contract
         workload = contract.get_propertys().givecopy();
         listOfPropertyLeft = workload.getListOfProperty();
@@ -36,6 +34,7 @@ class Project
         {   workAssigns.Add(p,new List<Employee>());
         }
         assignToWorks(manpowers);
+        updateWorkForce();
     }
 
    // ideally max should be null handled;
@@ -44,7 +43,6 @@ class Project
         {   Property max = e.get_propertys().getMaxBasicProperty(listOfPropertyLeft);
             workAssigns[max].Add(e);
         }
-        updateWorkForce();
     }
 
     // called when a property is filled up
@@ -52,9 +50,12 @@ class Project
     private void finishOneTask(Property targetTask)
     {   listOfPropertyLeft.Remove(targetTask);
         if(listOfPropertyLeft.Count!=0)
-        assignToWorks(workAssigns[targetTask]);
-        //list.removeALl() may be better here
-        workAssigns[targetTask] = new List<Employee>();
+        {   //assign finished tasks' workers to other tasks
+            assignToWorks(workAssigns[targetTask]);
+            //clear up the work assigns for the finished task
+            workAssigns[targetTask].Clear();
+            updateWorkForce();
+        }
         //if went over the workload, handled here
         workOverFlowHandling(targetTask);
     }

@@ -5,11 +5,13 @@ using System.Collections.Generic;
 public class Contract
 {   private BasicPropertys propertys;
     private string name;
+    private string description;
     private int award;
     private int level;
 
-    public Contract(string name, int award, int level, BasicPropertys propertys)
+    public Contract(string name, string description, int award, int level, BasicPropertys propertys)
     {   this.name = name;
+        this.description = description;
         this.award = award;
         this.level = level;
         this.propertys = propertys;

@@ -63,9 +63,9 @@ public class GameControl
         PlayerCompany.hire_employee(PrebuiltEmployees[0]);
         PlayerCompany.hire_employee(PrebuiltEmployees[1]);
 
-        PrebuiltContracts.Add(new Contract("Bristol Romantic Website",
+        PrebuiltContracts.Add(new Contract("Bristol Romantic Website","romance",
         500,1,new BasicPropertys(300,400,250)));
-        PrebuiltContracts.Add(new Contract("RAF webiste",
+        PrebuiltContracts.Add(new Contract("RAF webiste","raf",
             500,1,new BasicPropertys(200,600,50)));
         PlayerCompany.take_project(PrebuiltContracts[0],new string[] {"Lucy","Tracy"});
         PlayerCompany.take_project(PrebuiltContracts[1],new string[] {"Lisbon"});
