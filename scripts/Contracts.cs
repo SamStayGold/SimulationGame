@@ -1,3 +1,7 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+[Serializable]
 public class Contract
 {   private BasicPropertys propertys;
     private string name;

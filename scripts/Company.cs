@@ -5,6 +5,7 @@ using UnityEngine;
 
 /* this is all you need to know about the model */
 /* you are only allowed to use functions in the interface */
+
 interface CompanyInterface
 {   // action funcion
     bool take_project(Contract contract, string[] CrewNames);
@@ -20,6 +21,7 @@ interface CompanyInterface
 
 // employee was held in a Dictionary, so that you can find one employee
 // by its name
+[Serializable]
 public class Company : CompanyInterface
 {   private Dictionary<string,Employee> employees = new Dictionary<string,Employee>();
     private List<Asset> assets = new List<Asset>();

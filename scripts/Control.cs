@@ -2,81 +2,53 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 public class Control : MonoBehaviour
-{   private Company PlayerCompany;
-    private List<Employee> PrebuiltEmployees = new List<Employee>();
-    private List<Contract> PrebuiltContracts = new List<Contract>();
-    private float time0 = 0.0f;
-    private float interval = 3.0f;  // the real time for each day in seconds
-    private int day = 0;
+{   private GameControl gameControl;
 
     // Only fetch information using functions in the Interfaces
     // anythin below interface you don't need to know
 
 // static function to let UI GameObject knows where the controller is
-    public static Control ConnectToGameModel()
+    public static GameControl ConnectToGameModel()
     {   GameObject gamemodel = GameObject.FindWithTag("GameController");
-        return gamemodel.GetComponent<Control>();
+        return gamemodel.GetComponent<Control>().getModel();
     }
 
-    public Company getUserCompany()
-    {   return PlayerCompany;
+    public GameControl getModel()
+    {   return gameControl;
     }
 
     void Start()
-    {   PlayerCompany = new Company("California Technology");
-        intial_settings();
+    {   gameControl = new GameControl();
+        gameControl.start();
+        testWriteTo();
     }
 
     void Update()
-    {   if(Time.time-time0>interval)
-        {   time0 = Time.time;
-            print_time();
-            time_update_model();
-        }
+    {   gameControl.update();
     }
 
-    void time_update_model()
-    {   PlayerCompany.update_company();
-        PlayerCompany.print_company();
-        day ++;
+    private void testWriteTo()
+    {   FileHandler handler = new FileHandler();
+        handler.saveObject(gameControl,"gameControl");
+        GameControl readOut = (GameControl) handler.readObject("gameControl");
+        readOut.print_time();
+        readOut.print_time();readOut.print_time();
     }
 
-    void intial_settings()
-    {   PrebuiltEmployee("Lucy", 8, new BasicPropertys(50,50,50));
-        PrebuiltEmployee("Tracy", 5, new BasicPropertys(50,33,50));
-        PrebuiltEmployee("Lisbon", 10, new BasicPropertys(50,33,76));
-        PrebuiltEmployee("Sam", 1, new BasicPropertys(20,23,16));
-        PlayerCompany.buy_asset(new Asset("Mercedes C-class",200000f));
-        PlayerCompany.print_employees();
-        PlayerCompany.print_assets();
-        PlayerCompany.print_company();
-
-        PrebuiltContracts.Add(new Contract("Bristol Romantic Website",
-        500,1,new BasicPropertys(300,400,250)));
-        PrebuiltContracts.Add(new Contract("RAF webiste",
-            500,1,new BasicPropertys(200,600,50)));
-        PlayerCompany.take_project(PrebuiltContracts[0],new string[] {"Lucy","Tracy"});
-        PlayerCompany.take_project(PrebuiltContracts[1],new string[] {"Lisbon"});
+    public void saveGame()
+    {   FileHandler handler = new FileHandler();
+        handler.saveObject(gameControl,"gameControl");
     }
 
-    void print_time()
-    {   Debug.Log("");
-        Debug.Log("//// "+ interval+" seconds passed//// current situation:");
-        Debug.Log("Day "+day+":");
-    }
-
-    public void PrebuiltEmployee(string s, int salary, BasicPropertys propertys)
-    {   PrebuiltEmployees.Add(new Employee(s,salary,propertys));
-    }
-
-    public void DeletePrebuiltEmployee(Employee e)
-    {   PrebuiltEmployees.Remove(e);
-    }
-
-    public List<Employee> getPrebuiltEmployees()
-    {   return PrebuiltEmployees;
+    public void loadGame(string name)
+    {   FileHandler handler = new FileHandler();
+        GameControl readOut = (GameControl) handler.readObject(name);
+        gameControl = readOut;
     }
 
 }

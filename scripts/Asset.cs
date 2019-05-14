@@ -1,3 +1,7 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+[Serializable]
 public class Asset
 {   private string name;
     private float price;

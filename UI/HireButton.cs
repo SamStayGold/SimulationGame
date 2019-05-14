@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class HireButton : MonoBehaviour
 {   GameObject inputfield;
-    Control control;
+    GameControl control;
     Employee employee;
     void Start()
     {   Button button = gameObject.GetComponent<Button>();
