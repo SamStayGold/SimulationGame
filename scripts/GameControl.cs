@@ -51,17 +51,17 @@ public class GameControl
     }
 
     void intial_settings()
-    {   PrebuiltEmployee("Lucy", 8, new BasicPropertys(50,51,52));
-        PrebuiltEmployee("Tracy", 5, new BasicPropertys(50,33,51));
-        PrebuiltEmployee("Lisbon", 10, new BasicPropertys(50,33,76));
-        PrebuiltEmployee("Sam", 1, new BasicPropertys(20,23,16));
+    {   PrebuiltEmployee("Lucy", 8, "SpiderMan", "hahaha",new BasicPropertys(50,51,52));
+        PrebuiltEmployee("Tracy", 5, "SpiderMan", "hahaha",new BasicPropertys(50,33,51));
+        PrebuiltEmployee("Lisbon", 10, "SpiderMan", "hahaha",new BasicPropertys(50,33,76));
+        PrebuiltEmployee("Sam", 1, "SpiderMan", "hahaha",new BasicPropertys(20,23,16));
         PlayerCompany.buy_asset(new Asset("Mercedes C-class",200000f));
         PlayerCompany.print_employees();
         PlayerCompany.print_assets();
         PlayerCompany.print_company();
 
-        PlayerCompany.hire_employee(PrebuiltEmployees[0]);
-        PlayerCompany.hire_employee(PrebuiltEmployees[1]);
+       // PlayerCompany.hire_employee(PrebuiltEmployees[0]);
+        //PlayerCompany.hire_employee(PrebuiltEmployees[1]);
 
         PrebuiltContracts.Add(new Contract("Bristol Romantic Website","romance",
         500,1,new BasicPropertys(300,400,250)));
@@ -77,8 +77,8 @@ public class GameControl
         Debug.Log("Day "+day+":");
     }
 
-    public void PrebuiltEmployee(string s, int salary, BasicPropertys propertys)
-    {   PrebuiltEmployees.Add(new Employee(s,salary,propertys));
+    public void PrebuiltEmployee(string s, int salary, string jobTitle, string description, BasicPropertys propertys)
+    {   PrebuiltEmployees.Add(new Employee(s,salary,jobTitle,description,propertys));
     }
 
     public void DeletePrebuiltEmployee(Employee e)

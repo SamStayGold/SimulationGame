@@ -40,7 +40,7 @@ class Project
    // ideally max should be null handled;
     private void assignToWorks(List<Employee> availbleMen)
     {   foreach(Employee e in availbleMen)
-        {   Property max = e.get_propertys().getMaxBasicProperty(listOfPropertyLeft);
+        {   Property max = e.getPropertys().getMaxBasicProperty(listOfPropertyLeft);
             workAssigns[max].Add(e);
         }
     }
@@ -64,7 +64,7 @@ class Project
     {   workforce = new BasicPropertys(0,0,0);
         foreach(KeyValuePair<Property,List<Employee>> entry in workAssigns)
         {   foreach(Employee e in entry.Value)
-            {   int hisAbility = e.get_propertys().getPropertyQuant(entry.Key);
+            {   int hisAbility = e.getPropertys().getPropertyQuant(entry.Key);
                 workforce.updatePropertyQuant(entry.Key,hisAbility);
             }
         }

@@ -7,6 +7,8 @@ public class HireButton : MonoBehaviour
 {   GameObject inputfield;
     GameControl control;
     Employee employee;
+    GameObject panel;
+
     void Start()
     {   Button button = gameObject.GetComponent<Button>();
         button.onClick.AddListener(TaskOnClick);
@@ -17,9 +19,20 @@ public class HireButton : MonoBehaviour
     {   this.employee = e;
     }
 
-    void TaskOnClick()
-    {   if(employee!=null)
-        control.getUserCompany().hire_employee(employee);
+    public void setPanel(GameObject panel)
+    {   this.panel = panel;
     }
 
+    void TaskOnClick()
+    {   if(employee != null)
+        {   control.getUserCompany().hire_employee(employee);
+            control.DeletePrebuiltEmployee(employee);
+            Destroy(panel);
+        }
+    }
+
+    void DrawPanel()
+    {
+
+    }
 }

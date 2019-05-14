@@ -46,7 +46,7 @@ public class Company : CompanyInterface
 // pay employees
     public void update_employees()
     {   foreach (Employee e in employees.Values)
-        money -= e.get_salary();
+        money -= e.getSalary();
     }
 
 // proceed every project
@@ -88,7 +88,7 @@ public class Company : CompanyInterface
     }
 
     public void hire_employee(Employee e)
-    {   employees.Add(e.get_name(),e);
+    {   employees.Add(e.getName(),e);
     }
 
     public void buy_asset(Asset newasset)
@@ -107,14 +107,14 @@ public class Company : CompanyInterface
     public void print_employees()
     {   String s = "";
         foreach (Employee e in employees.Values)
-        s+=e.get_name()+"  ";
+        s+=e.getName()+"  ";
         Debug.Log("Your current staff: "+s);
     }
 
     public string employees_info()
     {   string info = "";
         foreach (Employee e in employees.Values)
-        info += "Employee: "+e.get_name()+"\n";
+        info += "Employee: "+e.getName()+"\n";
         return info;
     }
 
