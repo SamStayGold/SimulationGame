@@ -35,6 +35,8 @@ public class Company : CompanyInterface
     public List<Project> getCurrentProjects()
     {   return projects_engaged;
     }
+    public int getMoney() { return money;}
+
 
     public Company(string name)
     {   this.company_name = name;

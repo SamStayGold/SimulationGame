@@ -22,6 +22,7 @@ public class GameControl
     public bool isNewUPdate() { return newUpdate;}
     public void resolveUpdate() { newUpdate = false;}
 
+    public int getDay() { return day;}
     // Only fetch information using functions in the Interfaces
     // anythin below interface you don't need to know
 
@@ -57,24 +58,41 @@ public class GameControl
     }
 
     void intial_settings()
-    {   PrebuiltEmployee("Lucy", 8, "SpiderMan", "hahaha",new BasicPropertys(50,51,52));
-        PrebuiltEmployee("Tracy", 5, "SpiderMan", "hahaha",new BasicPropertys(50,33,51));
-        PrebuiltEmployee("Lisbon", 10, "SpiderMan", "hahaha",new BasicPropertys(50,33,76));
-        PrebuiltEmployee("Sam", 1, "SpiderMan", "hahaha",new BasicPropertys(20,23,16));
+    {   Employee e1 = new Employee("Lucy", 8, "SpiderMan", "hahaha",new BasicPropertys(50,51,52));
+        Employee e2 = new Employee("Tracy", 5, "SpiderMan", "hahaha",new BasicPropertys(50,33,51));
+        Employee e3 = new Employee("Lisbon", 10, "SpiderMan", "hahaha",new BasicPropertys(50,33,76));
+        Employee e4 = new Employee("Sam", 1, "SpiderMan", "hahaha",new BasicPropertys(20,23,16));
+        PrebuiltEmployees.Add(e1);
+        PrebuiltEmployees.Add(e2);
+        PrebuiltEmployees.Add(e3);
+        PrebuiltEmployees.Add(e4);
+
         PlayerCompany.buy_asset(new Asset("Mercedes C-class",200000f));
+
         PlayerCompany.print_employees();
         PlayerCompany.print_assets();
         PlayerCompany.print_company();
 
-       // PlayerCompany.hire_employee(PrebuiltEmployees[0]);
-        //PlayerCompany.hire_employee(PrebuiltEmployees[1]);
+        PlayerCompany.hire_employee(e1);
+        PrebuiltEmployees.Remove(e1);
+        PlayerCompany.hire_employee(e3);
+        PrebuiltEmployees.Remove(e3);
 
         PrebuiltContracts.Add(new Contract("Bristol Romantic Website","romance",
             Industry.SpaceEngineering,500,1,100, new BasicPropertys(300,400,250)));
-        PrebuiltContracts.Add(new Contract("RAF webiste","raf",
+
+       Contract contract = new Contract("RAF webiste","raf",
+            Industry.Military,500,1,170, new BasicPropertys(200,600,50));
+
+       PrebuiltContracts.Add(new Contract("RAF webiste","raf",
             Industry.Military,500,1,170, new BasicPropertys(200,600,50)));
-        PlayerCompany.take_project(PrebuiltContracts[0],new string[] {"Lucy","Tracy"});
-        PlayerCompany.take_project(PrebuiltContracts[1],new string[] {"Lisbon"});
+
+        PlayerCompany.take_project(PrebuiltContracts[0],new string[] {"Lucy"});
+        DeletePrebuiltContract(PrebuiltContracts[0]);
+        //ontract contract = PrebuiltContracts[1];
+        if(contract ==null) Debug.Log("wfwfwfwfwfw");
+        PlayerCompany.take_project(contract,new string[] {"Lisbon"});
+        DeletePrebuiltContract(PrebuiltContracts[0]);
     }
 
     public void print_time()
@@ -83,8 +101,8 @@ public class GameControl
         Debug.Log("Day "+day+":");
     }
 
-    public void PrebuiltEmployee(string s, int salary, string jobTitle, string description, BasicPropertys propertys)
-    {   PrebuiltEmployees.Add(new Employee(s,salary,jobTitle,description,propertys));
+    public void PrebuiltEmployee(Employee e)
+    {   PrebuiltEmployees.Add(e);
     }
 
     public void DeletePrebuiltEmployee(Employee e)
