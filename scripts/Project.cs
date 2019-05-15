@@ -3,22 +3,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [Serializable]
-class Project
+public class Project
 {   private Contract contract;
     Dictionary<Property,List<Employee>> workAssigns = new Dictionary<Property,List<Employee>>();
     private List<Employee> manpowers = new List<Employee>();
     private List<Property> listOfPropertyLeft;
 
+    private int currentDays = 0;
+
     private BasicPropertys workload;
     private BasicPropertys progress = new BasicPropertys(0,0,0);
     private BasicPropertys workforce;
 
-    public int get_award() {   return contract.get_award();}
+    public int getAward() {   return contract.getAward();}
+    public Industry getIndustry() {  return contract.getIndustry();}
+    public string getName() {  return contract.getName();}
+
+    public BasicPropertys getProgress() {  return progress;}
+    public int getRemainingTime() { return contract.getTimeLimit()-currentDays;}
+
+//need fail function
 
     public Project(Contract contract, List<Employee> employees)
     {   this.contract = contract;
         // record the workload requirements of the contract
-        workload = contract.get_propertys().givecopy();
+        workload = contract.getPropertys().givecopy();
         listOfPropertyLeft = workload.getListOfProperty();
 
         // add employees & record work force
@@ -77,7 +86,7 @@ class Project
 
         if(finishing_judge())
         {   free_employees();
-            Debug.Log("Project "+contract.get_name()+" finished");
+            Debug.Log("Project "+contract.getName()+" finished");
             return true;
         }
         return false;
@@ -87,6 +96,7 @@ class Project
 // just add to all the propertys like 3 bars
     private void projectproceed()
     {   progress.add_propertys(workforce);
+        currentDays ++;
     }
 
     private void projectAdjust()
@@ -125,7 +135,7 @@ class Project
     }
 
     public void print_project()
-    {   Debug.Log("Project "+contract.get_name()+"--current Progress--"+"Frontend:"+progress.Frontend
+    {   Debug.Log("Project "+contract.getName()+"--current Progress--"+"Frontend:"+progress.Frontend
         +"/"+workload.Frontend+", Backend:"+progress.Backend+"/"+workload.Backend+
         ", Creativity:"+progress.Graphics+"/"+workload.Graphics);
     }

@@ -32,6 +32,9 @@ public class Company : CompanyInterface
     public Dictionary<string,Employee> getEmployees()
     {   return employees;
     }
+    public List<Project> getCurrentProjects()
+    {   return projects_engaged;
+    }
 
     public Company(string name)
     {   this.company_name = name;
@@ -67,7 +70,7 @@ public class Company : CompanyInterface
 
 //  get paid from and remove finishing project
     private void finish_project(Project project)
-    {   money+=project.get_award();
+    {   money+=project.getAward();
         projects_engaged.Remove(project);
     }
 

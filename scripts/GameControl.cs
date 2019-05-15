@@ -18,6 +18,10 @@ public class GameControl
     public void pauseGame() {   pause = true;}
     public void resumeGame() {   pause = false;}
 
+    private bool newUpdate = false;
+    public bool isNewUPdate() { return newUpdate;}
+    public void resolveUpdate() { newUpdate = false;}
+
     // Only fetch information using functions in the Interfaces
     // anythin below interface you don't need to know
 
@@ -41,6 +45,8 @@ public class GameControl
         {   time0 = Time.time;
             print_time();
             time_update_model();
+            //flag the Update
+            newUpdate = true;
         }
     }
 
@@ -64,9 +70,9 @@ public class GameControl
         //PlayerCompany.hire_employee(PrebuiltEmployees[1]);
 
         PrebuiltContracts.Add(new Contract("Bristol Romantic Website","romance",
-        500,1,new BasicPropertys(300,400,250)));
+            Industry.SpaceEngineering,500,1,100, new BasicPropertys(300,400,250)));
         PrebuiltContracts.Add(new Contract("RAF webiste","raf",
-            500,1,new BasicPropertys(200,600,50)));
+            Industry.Military,500,1,170, new BasicPropertys(200,600,50)));
         PlayerCompany.take_project(PrebuiltContracts[0],new string[] {"Lucy","Tracy"});
         PlayerCompany.take_project(PrebuiltContracts[1],new string[] {"Lisbon"});
     }
@@ -85,8 +91,16 @@ public class GameControl
     {   PrebuiltEmployees.Remove(e);
     }
 
+    public void DeletePrebuiltContract(Contract c)
+    {   PrebuiltContracts.Remove(c);
+    }
+
     public List<Employee> getPrebuiltEmployees()
     {   return PrebuiltEmployees;
+    }
+
+    public List<Contract> getPrebuiltContracts()
+    {   return PrebuiltContracts;
     }
 
 }

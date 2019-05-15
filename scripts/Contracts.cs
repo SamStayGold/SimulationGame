@@ -8,24 +8,37 @@ public class Contract
     private string description;
     private int award;
     private int level;
+    private int timeLimit;
+    private Industry industry;
 
-    public Contract(string name, string description, int award, int level, BasicPropertys propertys)
+    public Contract(string name, string description, Industry industry, int award,
+                  int level, int timeLimit, BasicPropertys propertys)
     {   this.name = name;
         this.description = description;
+        this.industry = industry;
         this.award = award;
         this.level = level;
         this.propertys = propertys;
+        this.timeLimit = timeLimit;
     }
 
-    public string get_name() { return name;}
-    public int get_level() { return level;}
-    public int get_award() { return award;}
-    public BasicPropertys get_propertys()
+    public string getName() { return name;}
+    public string getDescription() { return description;}
+    public int getLevel() { return level;}
+    public int getAward() { return award;}
+    public int getTimeLimit() { return timeLimit;}
+    public Industry getIndustry() { return industry;}
+
+    public BasicPropertys getPropertys()
     {   return propertys;
     }
 
-    public string get_detail()
+    public string getDetail()
     {   return "Level "+level+"--"+name+" worths "+award+"$;";
+    }
+
+    public static void Main(string[] args)
+    {   Console.WriteLine(Industry.Military.ToString());
     }
 
 }
