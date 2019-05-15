@@ -1,4 +1,7 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -52,6 +55,15 @@ public class FileHandler
             BasicPropertys read = (BasicPropertys) handler.readObject("test");
             Debug.Assert(read.Frontend==1);
             Console.WriteLine(read.Frontend==1);
+        }
+
+        private void csvToJson()
+        {   var csv = new List<string[]>(); // or, List<YourClass>
+            var lines = System.IO.File.ReadAllLines(@"GameInfo");
+            foreach (string line in lines)
+            csv.Add(line.Split(',')); // or, populate YourClass
+            string json = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(csv);
+            Console.WriteLine(json);
         }
 
 }

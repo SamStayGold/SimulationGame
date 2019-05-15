@@ -6,6 +6,8 @@ To test the units separately, we need the following:
     write a makefile to do this   
     
 2  write a main function in the .cs file you want to test
+******* if there is multiple main in the classes 
+******* use -main:classname to determine the main that will run
 
 3  move all the unityengine reference from the unit except Control.cs, 
     which means moving all the Debug.Log to the Control.cs 

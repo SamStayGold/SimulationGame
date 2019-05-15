@@ -67,7 +67,7 @@ public class GameControl
         PrebuiltEmployees.Add(e3);
         PrebuiltEmployees.Add(e4);
 
-        PlayerCompany.buy_asset(new Asset("Mercedes C-class",200000f));
+        PlayerCompany.buy_asset(new Asset("Mercedes C-class",200000,"ccc",0));
 
         PlayerCompany.print_employees();
         PlayerCompany.print_assets();

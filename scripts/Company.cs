@@ -1,33 +1,35 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+
 
 /* this is all you need to know about the model */
 /* you are only allowed to use functions in the interface */
-
+/*
 interface CompanyInterface
 {   // action funcion
     bool take_project(Contract contract, string[] CrewNames);
-    void buy_asset(Asset newasset);
     void hire_employee(Employee e);
 
     //ask infos
     Dictionary<string,Employee> getEmployees();
 
-}
+}*/
 
 /* anything else below you don't need to know */
 
 // employee was held in a Dictionary, so that you can find one employee
 // by its name
 [Serializable]
-public class Company : CompanyInterface
+public class Company //: CompanyInterface
 {   private Dictionary<string,Employee> employees = new Dictionary<string,Employee>();
     private List<Asset> assets = new List<Asset>();
     private List<Project> projects_engaged = new List<Project>();
-    private int money;
+    private int money = 100000000;
     private string company_name;
+
+    //empty string = no alert
+    private Alert alert = new Alert();
 
     public Dictionary<string,Employee> getEmployees()
     {   return employees;
@@ -92,12 +94,84 @@ public class Company : CompanyInterface
         return true;
     }
 
-    public void hire_employee(Employee e)
-    {   employees.Add(e.getName(),e);
+    public bool hire_employee(Employee e)
+    {   if (check_hireable(e)) employees.Add(e.getName(),e);
+        else
+        {  alert.setMessage("Can't hire now, you don't have required assets yet");
+           return false;
+        }
+        return true;
     }
 
-    public void buy_asset(Asset newasset)
-    {   assets.Add(newasset);
+    public bool buy_asset(Asset newasset)
+    {   if (money < newasset.getPrice())
+        {   alert.setMessage("You don't have enough money to buy this assets!");
+            return false;
+        }
+
+        if (newasset.getName().Contains("Server Clusters"))
+        {   if(!hasAssetWithName("Server Room"))
+            alert.setMessage("You need a Server Room to buy server");
+            return false;
+        }
+        assets.Add(newasset);
+        money -= newasset.getPrice();
+        return true;
+    }
+
+    private bool check_buyable()
+    {   return true;
+    }
+
+    private bool check_hireable(Employee e)
+    {   string[] titleKeywords = e.getJobTitle().Split(' ');
+        foreach(string s in titleKeywords)
+        {    if(!checkKeyTitle(s)) return false;
+        }
+        return true;
+    }
+
+    private bool checkKeyTitle(string keywords)
+    {   switch (keywords)
+        {    case "Operation":
+                if(hasAssetWithName("Server Room")) return true;
+                return false;
+             case "Senior":
+                if(hasAssetWithName("Office LV2")) return true;
+                return false;
+             case "Full":
+                if(hasAssetWithName("Office LV3")) return true;
+                if(hasAssetWithName("Office LV2"))
+                {   if(countEmployeeWithKeyword("Full")<3) return true;
+                }
+                return false;
+             default:
+                return true;
+       }
+     }
+
+     private int countEmployeeWithKeyword(string keyword)
+     {   int count = 0;
+         foreach(Employee e in employees.Values)
+         {   if(e.getName().Contains(keyword))
+             count++;
+         }
+         return count;
+     }
+
+     private bool hasAssetWithName(string name)
+     {   foreach(Asset a in assets)
+         {   if(a.getName().Equals(name))
+             return true;
+         }
+         return false;
+     }
+
+    public string get_alert_message()
+    {   string message = alert.getMessage();
+        //reset alert
+        alert.setMessage("");
+        return message;
     }
 
 
@@ -125,14 +199,21 @@ public class Company : CompanyInterface
 
     public void print_assets()
     {   foreach (Asset a in assets)
-        Debug.Log("Your current assets: "+a.get_detail());
+        Debug.Log("Your current assets: "+a.getDetail());
     }
 
     public string assets_info()
     {   string info = "";
         foreach (Asset a in assets)
-        info += "Asset: "+a.get_detail()+"\n";
+        info += "Asset: "+a.getDetail()+"\n";
         return info;
     }
 
+    public static void Main(string[] args)
+    {   Company cmp = new Company("haa");
+        Asset a1 = new Asset("Office LV3",100,"haa",300);
+        if(cmp.buy_asset(a1)==false) Console.WriteLine("test fails");
+        Employee e1 = new Employee("22",1,"Full Stacker","sd",new BasicPropertys(0,0,0));
+        if(cmp.hire_employee(e1)==false) Console.WriteLine("test fails");
+    }
 }

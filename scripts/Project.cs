@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+
 [Serializable]
 public class Project
 {   private Contract contract;
@@ -86,7 +86,7 @@ public class Project
 
         if(finishing_judge())
         {   free_employees();
-            Debug.Log("Project "+contract.getName()+" finished");
+            printFinished();
             return true;
         }
         return false;
@@ -134,9 +134,14 @@ public class Project
         e.freefromwork();
     }
 
-    public void print_project()
+    public void printProject()
     {   Debug.Log("Project "+contract.getName()+"--current Progress--"+"Frontend:"+progress.Frontend
         +"/"+workload.Frontend+", Backend:"+progress.Backend+"/"+workload.Backend+
         ", Creativity:"+progress.Graphics+"/"+workload.Graphics);
+        ;
+    }
+
+    public void printFinished()
+    {   Debug.Log("Project "+contract.getName()+" finished");
     }
 }

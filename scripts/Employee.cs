@@ -6,8 +6,8 @@ public class Employee
     private string image_filepath;
     private bool occupied = false;
     private int salary;
-    string jobTitle;
-    string description;
+    private string jobTitle;
+    private string description;
 
     public static void Main(string[] args)
     {   Console.WriteLine("Hello World");
